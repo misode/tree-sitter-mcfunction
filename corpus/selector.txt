@@ -1,0 +1,40 @@
+=====
+Basic selectors
+=====
+tp @p
+tp @a
+tp @r
+tp @s
+tp @e
+---
+(function
+  (command (selector))
+  (command (selector))
+  (command (selector))
+  (command (selector))
+  (command (selector))
+)
+
+=====
+Selector argument
+=====
+tp @e[type=sheep]
+---
+(function
+  (command (selector
+    (selector_argument (entity_type))
+  ))
+)
+
+=====
+Multiple selector arguments
+=====
+tp @e[name=foo,tag=bar,tag=oof]
+---
+(function
+  (command (selector
+    (selector_argument)
+    (selector_argument)
+    (selector_argument)
+  ))
+)
