@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "A tree sitter grammar for Minecraft functions",
   "main": "index.js",
-  "repository": null,
+  "repository": "https://github.com/misode/tree-sitter-mcfunction",
   "author": "Misode",
-  "license": null,
+  "license": "MIT",
   "devDependencies": {
     "tree-sitter-cli": "^0.13.5"
   },
