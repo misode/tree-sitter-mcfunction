@@ -3,7 +3,7 @@ Comments
 =====
 
 # this is a comment
-say hi # this is not a comment
+say hi this is not a comment
 
 #another comment ##
 
