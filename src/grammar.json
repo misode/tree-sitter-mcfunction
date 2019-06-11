@@ -75,6 +75,14 @@
         {
           "type": "SYMBOL",
           "name": "_data_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_function_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_schedule_command"
         }
       ]
     },
@@ -482,6 +490,40 @@
         {
           "type": "SYMBOL",
           "name": "nbt_path"
+        }
+      ]
+    },
+    "_function_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_name"
+        }
+      ]
+    },
+    "_schedule_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "schedule"
+        },
+        {
+          "type": "STRING",
+          "value": "function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time"
         }
       ]
     },
@@ -1015,6 +1057,14 @@
     "nbt_path": {
       "type": "PATTERN",
       "value": "[^\n\r ]+"
+    },
+    "function_name": {
+      "type": "PATTERN",
+      "value": "([\\.a-z0-9_-]+:)?[\\/\\.a-z0-9_-]+"
+    },
+    "time": {
+      "type": "PATTERN",
+      "value": "[0-9]+(\\.[0-9]+)?[std]"
     }
   },
   "extras": [

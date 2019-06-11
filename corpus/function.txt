@@ -1,0 +1,27 @@
+=====
+Function
+=====
+function minecraft:hello
+function world
+function namespace:run2
+
+---
+(function
+  (command (function_name))
+  (command (function_name))
+  (command (function_name))
+)
+
+=====
+Schedule function
+=====
+schedule function minecraft:hello 4d
+schedule function world 2d
+schedule function namespace:run2 0.5s
+
+---
+(function
+  (command (function_name) (time))
+  (command (function_name) (time))
+  (command (function_name) (time))
+)

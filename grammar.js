@@ -20,7 +20,9 @@ module.exports = grammar({
       $._setblock_command,
       $._summon_command,
       $._say_command,
-      $._data_command
+      $._data_command,
+      $._function_command,
+      $._schedule_command,
     ),
 
     _teleport_command: $ => seq(
@@ -119,6 +121,18 @@ module.exports = grammar({
       $.nbt_path
     ),
 
+    _function_command: $ => seq(
+      'function',
+      $.function_name
+    ),
+
+    _schedule_command: $ => seq(
+      'schedule',
+      'function',
+      $.function_name,
+      $.time
+    ),
+
     selector: $ => seq(
       '@',
       choice('p', 'a', 'r', 's', 'e'),
@@ -138,6 +152,7 @@ module.exports = grammar({
 
     selector_key: $ => /[A-Za-z0-9_.-]+/,
 
+    // TODO: improve selector value expression
     selector_value: $ => /[A-Za-z0-9_.-]+/,
 
     _coordinate3: $ => seq(
@@ -259,7 +274,11 @@ module.exports = grammar({
     //_unquoted_string: $ => /[A-Za-z0-9_]+/,
 
     // TODO: improve nbt path expression
-    nbt_path: $ => /[^\u000A\u000D ]+/
+    nbt_path: $ => /[^\u000A\u000D ]+/,
+
+    function_name: $ => /([\.a-z0-9_-]+:)?[\/\.a-z0-9_-]+/,
+
+    time: $ => /[0-9]+(\.[0-9]+)?[std]/
 
   }
 
