@@ -219,22 +219,44 @@ module.exports = grammar({
       $.nbt_array
     ),
 
-    nbt_number: $ => prec(2,
-      /-?[0-9]+(\.[0-9]+)?[bsfdl]?/,
-    ),
+    nbt_number: $ => /-?[0-9]+(\.[0-9]+)?[bsfdl]?/,
 
     nbt_string: $ => choice(
-      $._quoted_string,
-      $._unquoted_string
+      $._quoted_string
     ),
 
-    _quoted_string: $ => seq(
-      '"',
-      /[^\u000A\u000D ]*/,
-      '"'
+    _quoted_string: $ => choice(
+      seq(
+        '"',
+        repeat(choice(
+          token.immediate(/[^"\\\n]+/),
+          $.escape_sequence
+        )),
+        '"'
+      ),
+      seq(
+        "'",
+        repeat(choice(
+          token.immediate(/[^'\\\n]+/),
+          $.escape_sequence
+        )),
+        "'"
+      )
     ),
 
-    _unquoted_string: $ => /[A-Za-z0-9_]/,
+    escape_sequence: $ => token.immediate(seq(
+      '\\',
+      choice(
+        /[^xu0-7]/,
+        /[0-7]{1,3}/,
+        /x[0-9a-fA-F]{2}/,
+        /u[0-9a-fA-F]{4}/,
+        /u{[0-9a-fA-F]+}/
+      )
+    )),
+
+    // TODO: support unquoted strings
+    //_unquoted_string: $ => /[A-Za-z0-9_]+/,
 
     // TODO: improve nbt path expression
     nbt_path: $ => /[^\u000A\u000D ]+/

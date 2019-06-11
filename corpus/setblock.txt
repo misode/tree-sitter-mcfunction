@@ -74,3 +74,57 @@ setblock ~ ~ ~ lectern[facing=north]{Page:3}
     )
   )
 )
+
+=====
+Setblock with NBT string
+=====
+setblock ~ ~ ~ foo{Bar:"Hello"}
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (nbt_compound (nbt_key) (nbt_string))
+    )
+  )
+)
+
+=====
+Setblock with NBT string using single quotes
+=====
+setblock ~ ~ ~ foo{Bar:'Hello'}
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (nbt_compound (nbt_key) (nbt_string))
+    )
+  )
+)
+
+=====
+Setblock with quoted NBT string with escape sequence
+=====
+setblock ~ ~ ~ foo{Bar:"Hello\nWorld"}
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (nbt_compound (nbt_key) (nbt_string (escape_sequence)))
+    )
+  )
+)
