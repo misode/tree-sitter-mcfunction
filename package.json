@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-mcfunction",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A tree sitter grammar for Minecraft functions",
   "main": "index.js",
   "repository": "https://github.com/misode/tree-sitter-mcfunction",
