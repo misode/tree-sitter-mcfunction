@@ -3,7 +3,6 @@ Comments
 =====
 
 # this is a comment
-say hi this is not a comment
 
 #another comment ##
 
@@ -11,7 +10,6 @@ say hi this is not a comment
 
 (function
   (comment)
-  (command)
   (comment)
 )
 
@@ -21,14 +19,15 @@ Complex comments
 
 # this is 1 comment
 ##this is another comment
-# #oof
+say this #is not a comment
 
 # bar
+
 ---
 
 (function
   (comment)
   (comment)
-  (comment)
+  (command (message))
   (comment)
 )

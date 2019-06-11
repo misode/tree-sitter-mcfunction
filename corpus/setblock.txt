@@ -1,0 +1,76 @@
+=====
+Setblock
+=====
+setblock ~ ~ ~ stone
+setblock ~ ~ ~ minecraft:red_wool
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block (block_type))
+  )
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block (block_type))
+  )
+)
+
+=====
+Setblock with NBT
+=====
+setblock ~ ~ ~ lectern{Page:3}
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (nbt_compound (nbt_key) (nbt_number))
+    )
+  )
+)
+
+=====
+Setblock with block state
+=====
+setblock ~ ~ ~ piston[facing=up]
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (block_state (block_state_key) (block_state_value))
+    )
+  )
+)
+
+=====
+Setblock with block state and NBT
+=====
+setblock ~ ~ ~ lectern[facing=north]{Page:3}
+
+---
+(function
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (block
+      (block_type)
+      (block_state (block_state_key) (block_state_value))
+      (nbt_compound (nbt_key) (nbt_number))
+    )
+  )
+)

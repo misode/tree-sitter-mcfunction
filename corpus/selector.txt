@@ -6,6 +6,7 @@ tp @a
 tp @r
 tp @s
 tp @e
+
 ---
 (function
   (command (selector))
@@ -19,22 +20,46 @@ tp @e
 Selector argument
 =====
 tp @e[type=sheep]
+tp @e[tag=baz]
+tp @e[gamemode=survival]
+tp @e[level=5]
+tp @e[team=foo]
+tp @e[distance=5]
+
 ---
 (function
-  (command (selector
-    (selector_argument (entity_type))
-  ))
+  (command
+    (selector (selector_key) (selector_value))
+  )
+  (command
+    (selector (selector_key) (selector_value))
+  )
+  (command
+    (selector (selector_key) (selector_value))
+  )
+  (command
+    (selector (selector_key) (selector_value))
+  )
+  (command
+    (selector (selector_key) (selector_value))
+  )
+  (command
+    (selector (selector_key) (selector_value))
+  )
 )
 
 =====
 Multiple selector arguments
 =====
 tp @e[name=foo,tag=bar,tag=oof]
+
 ---
 (function
-  (command (selector
-    (selector_argument)
-    (selector_argument)
-    (selector_argument)
-  ))
+  (command
+    (selector
+      (selector_key) (selector_value)
+      (selector_key) (selector_value)
+      (selector_key) (selector_value)
+    )
+  )
 )

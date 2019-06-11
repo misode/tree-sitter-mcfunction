@@ -1,0 +1,27 @@
+=====
+Summon
+=====
+summon armor_stand ~ ~ ~
+summon minecraft:bat ~ ~ ~
+
+---
+(function
+  (command (entity_type) (coordinate) (coordinate) (coordinate))
+  (command (entity_type) (coordinate) (coordinate) (coordinate))
+)
+
+=====
+Summon with NBT
+=====
+summon armor_stand ~ ~ ~ {Marker:1b}
+
+---
+(function
+  (command
+    (entity_type)
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_compound (nbt_key) (nbt_number))
+  )
+)

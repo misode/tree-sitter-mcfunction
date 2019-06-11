@@ -1,0 +1,92 @@
+=====
+Data merge
+=====
+data merge entity @s {Color:1b}
+data merge block ~ ~ ~ {Foo:1}
+
+---
+(function
+  (command
+    (selector)
+    (nbt_compound (nbt_key) (nbt_number))
+  )
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_compound (nbt_key) (nbt_number))
+  )
+)
+
+=====
+Data get
+=====
+data get entity @s Color
+data get block ~ ~ ~ Foo.bar
+
+---
+(function
+  (command
+    (selector)
+    (nbt_path)
+  )
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_path)
+  )
+)
+
+=====
+Data remove
+=====
+data remove entity @s Color
+data remove block ~ ~ ~ Foo.bar
+
+---
+(function
+  (command
+    (selector)
+    (nbt_path)
+  )
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_path)
+  )
+)
+
+=====
+Data modify
+=====
+data modify entity @s Color set value 1
+data modify block ~ ~ ~ Foo.bar append from entity @s Baz
+data modify entity @s Inventory insert 4 from block ~ ~ ~ Items[0]
+
+---
+(function
+  (command
+    (selector)
+    (nbt_path)
+    (nbt_number)
+  )
+  (command
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_path)
+    (selector)
+    (nbt_path)
+  )
+  (command
+    (selector)
+    (nbt_path)
+    (integer)
+    (coordinate)
+    (coordinate)
+    (coordinate)
+    (nbt_path)
+  )
+)

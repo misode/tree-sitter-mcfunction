@@ -1,0 +1,11 @@
+=====
+Teleport with 1 argument
+=====
+teleport @s
+tp @s
+
+---
+(function
+  (command (selector))
+  (command (selector))
+)
