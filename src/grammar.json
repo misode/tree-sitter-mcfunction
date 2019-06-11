@@ -83,6 +83,18 @@
         {
           "type": "SYMBOL",
           "name": "_schedule_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_scoreboard_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_team_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tag_command"
         }
       ]
     },
@@ -527,37 +539,34 @@
         }
       ]
     },
-    "selector": {
+    "_scoreboard_command": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "@"
+          "value": "scoreboard"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "p"
+              "type": "SYMBOL",
+              "name": "_scoreboard_objectives_command"
             },
             {
-              "type": "STRING",
-              "value": "a"
-            },
-            {
-              "type": "STRING",
-              "value": "r"
-            },
-            {
-              "type": "STRING",
-              "value": "s"
-            },
-            {
-              "type": "STRING",
-              "value": "e"
+              "type": "SYMBOL",
+              "name": "_scoreboard_players_command"
             }
           ]
+        }
+      ]
+    },
+    "_scoreboard_objectives_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "objectives"
         },
         {
           "type": "CHOICE",
@@ -567,36 +576,608 @@
               "members": [
                 {
                   "type": "STRING",
-                  "value": "["
+                  "value": "add"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_selector_argument"
+                  "name": "objective"
                 },
                 {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_selector_argument"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": "]"
+                  "type": "SYMBOL",
+                  "name": "scoreboard_criteria"
                 }
               ]
             },
             {
-              "type": "BLANK"
+              "type": "STRING",
+              "value": "list"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "modify"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "displayname"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "rendertype"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "hearts"
+                            },
+                            {
+                              "type": "STRING",
+                              "value": "integer"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "remove"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "setdisplay"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "belowName"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "list"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.aqua"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.black"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.blue"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_aqua"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_blue"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_gray"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_green"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_purple"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.dark_red"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.gold"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.gray"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.green"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.light_purple"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.red"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.white"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "sidebar.team.yellow"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_scoreboard_players_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "players"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "add"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "integer"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "enable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "get"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "list"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "operation"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "scoreboard_operation"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "remove"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "integer"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "reset"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "objective"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "set"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "objective"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "integer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_team_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "team"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "add"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "empty"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "join"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "leave"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "selector"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "list"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "team"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "modify"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team_option"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team_option_value"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "remove"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "team"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_tag_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "selector"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "add"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "tag"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "remove"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "tag"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "list"
+            }
+          ]
+        }
+      ]
+    },
+    "selector": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "@"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "p"
+                },
+                {
+                  "type": "STRING",
+                  "value": "a"
+                },
+                {
+                  "type": "STRING",
+                  "value": "r"
+                },
+                {
+                  "type": "STRING",
+                  "value": "s"
+                },
+                {
+                  "type": "STRING",
+                  "value": "e"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "["
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_selector_argument"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_selector_argument"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "]"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         }
@@ -1065,6 +1646,71 @@
     "time": {
       "type": "PATTERN",
       "value": "[0-9]+(\\.[0-9]+)?[std]"
+    },
+    "objective": {
+      "type": "PATTERN",
+      "value": "[\\.A-Za-z0-9_-]{1,16}"
+    },
+    "scoreboard_criteria": {
+      "type": "PATTERN",
+      "value": "[\\.A-Za-z0-9:_-]+"
+    },
+    "scoreboard_operation": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%="
+        },
+        {
+          "type": "STRING",
+          "value": "*="
+        },
+        {
+          "type": "STRING",
+          "value": "+="
+        },
+        {
+          "type": "STRING",
+          "value": "-="
+        },
+        {
+          "type": "STRING",
+          "value": "/="
+        },
+        {
+          "type": "STRING",
+          "value": "<="
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": ">="
+        },
+        {
+          "type": "STRING",
+          "value": "><"
+        }
+      ]
+    },
+    "team": {
+      "type": "PATTERN",
+      "value": "[\\.A-Za-z0-9_-]{1,16}"
+    },
+    "team_option": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]+"
+    },
+    "team_option_value": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]+"
+    },
+    "tag": {
+      "type": "PATTERN",
+      "value": "[\\.A-Za-z0-9_-]+"
     }
   },
   "extras": [

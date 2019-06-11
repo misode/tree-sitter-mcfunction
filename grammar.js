@@ -23,6 +23,9 @@ module.exports = grammar({
       $._data_command,
       $._function_command,
       $._schedule_command,
+      $._scoreboard_command,
+      $._team_command,
+      $._tag_command
     ),
 
     _teleport_command: $ => seq(
@@ -133,15 +136,100 @@ module.exports = grammar({
       $.time
     ),
 
-    selector: $ => seq(
-      '@',
-      choice('p', 'a', 'r', 's', 'e'),
-      optional(seq(
-        '[',
-        $._selector_argument,
-        repeat(seq(",",$._selector_argument)),
-        ']'
-      ))
+    _scoreboard_command: $ => seq(
+      'scoreboard',
+      choice(
+        $._scoreboard_objectives_command,
+        $._scoreboard_players_command
+      )
+    ),
+
+    _scoreboard_objectives_command: $ => seq(
+      'objectives',
+      choice(
+        // TODO: add optional display name
+        seq('add', $.objective, $.scoreboard_criteria),
+        'list',
+        seq('modify', $.objective, choice(
+          // TODO: add required display name parameter
+          seq('displayname'),
+          seq('rendertype', choice('hearts', 'integer'))
+        )),
+        seq('remove', $.objective),
+        seq('setdisplay', choice(
+          'belowName',
+          'sidebar',
+          'list',
+          'sidebar.team.aqua',
+          'sidebar.team.black',
+          'sidebar.team.blue',
+          'sidebar.team.dark_aqua',
+          'sidebar.team.dark_blue',
+          'sidebar.team.dark_gray',
+          'sidebar.team.dark_green',
+          'sidebar.team.dark_purple',
+          'sidebar.team.dark_red',
+          'sidebar.team.gold',
+          'sidebar.team.gray',
+          'sidebar.team.green',
+          'sidebar.team.light_purple',
+          'sidebar.team.red',
+          'sidebar.team.white',
+          'sidebar.team.yellow'
+        ), $.objective)
+      )
+    ),
+
+    _scoreboard_players_command: $ => seq(
+      'players',
+      choice(
+        seq('add', $.selector, $.objective, $.integer),
+        seq('enable', $.selector, $.objective),
+        seq('get', $.selector, $.objective),
+        seq('list', $.selector),
+        seq('operation', $.selector, $.objective, $.scoreboard_operation, $.selector, $.objective),
+        seq('remove', $.selector, $.objective, $.integer),
+        seq('reset', $.selector, optional($.objective)),
+        seq('set', $.selector, $.objective, $.integer)
+      )
+    ),
+
+    _team_command: $ => seq(
+      'team',
+      choice(
+        // TODO: add optional display name
+        seq('add', $.team),
+        seq('empty', $.team),
+        seq('join', $.team, $.selector),
+        seq('leave', $.selector),
+        seq('list', optional($.team)),
+        seq('modify', $.team, $.team_option, $.team_option_value),
+        seq('remove', $.team)
+      )
+    ),
+
+    _tag_command: $ => seq(
+      'tag',
+      $.selector,
+      choice(
+        seq('add', $.tag),
+        seq('remove', $.tag),
+        'list'
+      )
+    ),
+
+    selector: $ => choice(
+      seq(
+        '@',
+        choice('p', 'a', 'r', 's', 'e'),
+        optional(seq(
+          '[',
+          $._selector_argument,
+          repeat(seq(",",$._selector_argument)),
+          ']'
+        ))
+      )
+      // TODO: support fakeplayers
     ),
 
     _selector_argument: $ => seq(
@@ -278,7 +366,22 @@ module.exports = grammar({
 
     function_name: $ => /([\.a-z0-9_-]+:)?[\/\.a-z0-9_-]+/,
 
-    time: $ => /[0-9]+(\.[0-9]+)?[std]/
+    time: $ => /[0-9]+(\.[0-9]+)?[std]/,
+
+    objective: $ => /[\.A-Za-z0-9_-]{1,16}/,
+
+    scoreboard_criteria: $ => /[\.A-Za-z0-9:_-]+/,
+
+    scoreboard_operation: $ => choice('%=', '*=', '+=', '-=', '/=', '<=', '=', '>=', '><'),
+
+    team: $ => /[\.A-Za-z0-9_-]{1,16}/,
+
+    team_option: $ => /[A-Za-z]+/,
+
+    // TODO: allow text component alternative
+    team_option_value: $ => /[A-Za-z]+/,
+
+    tag: $ => /[\.A-Za-z0-9_-]+/
 
   }
 

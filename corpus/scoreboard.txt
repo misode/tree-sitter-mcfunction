@@ -1,0 +1,59 @@
+=====
+Scoreboard objectives
+=====
+scoreboard objectives add bar.baz dummy
+scoreboard objectives list
+scoreboard objectives setdisplay sidebar bar.baz
+scoreboard objectives remove bar.baz
+
+---
+(function
+  (command (objective) (scoreboard_criteria))
+  (command)
+  (command (objective))
+  (command (objective))
+)
+
+=====
+Scoreboard players
+=====
+scoreboard players set @s bar.baz 0
+scoreboard players operation @s foo += @s bar
+scoreboard players get @s foo
+
+---
+(function
+  (command (selector) (objective) (integer))
+  (command (selector) (objective) (scoreboard_operation) (selector) (objective))
+  (command (selector) (objective))
+)
+
+=====
+Team
+=====
+team add no_collision
+team modify no_collision collisionRule never
+team join foo.bar @s
+team list
+
+---
+(function
+  (command (team))
+  (command (team) (team_option) (team_option_value))
+  (command (team) (selector))
+  (command)
+)
+
+=====
+Tag
+=====
+tag @s add foo
+tag @s list
+tag @s remove Bar
+
+---
+(function
+  (command (selector) (tag))
+  (command (selector))
+  (command (selector) (tag))
+)
