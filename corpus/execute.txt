@@ -1,0 +1,121 @@
+=====
+Empty execute
+=====
+execute run say hi
+
+---
+(function
+  (command (command (message)))
+)
+
+=====
+Execute as/at
+=====
+execute as @a run say hi
+execute at @a run say hi
+
+---
+(function
+  (command (selector) (command (message)))
+  (command (selector) (command (message)))
+)
+
+=====
+Execute if/unless
+=====
+execute if entity @a
+execute if block ~ ~ ~ stone
+execute if score @s foo matches 0..
+execute unless score @s foo <= @s bar
+
+---
+(function
+  (command (selector))
+  (command (coordinate) (coordinate) (coordinate) (block (block_type)))
+  (command (selector) (objective) (integer_range (integer)))
+  (command (selector) (objective) (scoreboard_comparator) (selector) (objective))
+)
+
+=====
+Execute positioned/rotated
+=====
+execute positioned ~ ~ ~ run say hi
+execute positioned as @s run say hi
+execute rotated ~ ~ run say hi
+execute rotated as @s run say hi
+
+---
+(function
+  (command (coordinate) (coordinate) (coordinate) (command (message)))
+  (command (selector) (command (message)))
+  (command (coordinate) (coordinate) (command (message)))
+  (command (selector) (command (message)))
+)
+
+=====
+Execute facing
+=====
+execute facing ~ ~ ~ run say hi
+execute facing entity @s run say hi
+
+---
+(function
+  (command (coordinate) (coordinate) (coordinate) (command (message)))
+  (command (selector) (command (message)))
+)
+
+=====
+Execute anchored
+=====
+execute anchored feet run say hi
+execute anchored eyes run say hi
+
+---
+(function
+  (command (anchor) (command (message)))
+  (command (anchor) (command (message)))
+)
+
+=====
+Execute align
+=====
+execute align xyz run say hi
+execute align xz run say hi
+execute align y run say hi
+
+---
+(function
+  (command (axes_swizzle) (command (message)))
+  (command (axes_swizzle) (command (message)))
+  (command (axes_swizzle) (command (message)))
+)
+
+=====
+Execute in
+=====
+execute in minecraft:overworld run say hi
+execute in the_nether run say hi
+execute in the_end run say hi
+
+---
+(function
+  (command (dimension) (command (message)))
+  (command (dimension) (command (message)))
+  (command (dimension) (command (message)))
+)
+
+=====
+Execute store
+=====
+execute store result score @s foo run say hi
+execute store success entity @s Color byte 1 run say hi
+execute store result block ~ ~ ~ foo int 10 run say hi
+execute store result bossbar foo value run say hi
+
+---
+(function
+  (command (selector) (objective) (command (message)))
+  (command (selector) (nbt_path) (nbt_type) (float) (command (message)))
+  (command (coordinate) (coordinate) (coordinate) (nbt_path) (nbt_type) (float) (command (message)))
+  (command (bossbar) (command (message)))
+)

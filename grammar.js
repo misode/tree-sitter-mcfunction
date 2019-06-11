@@ -25,7 +25,8 @@ module.exports = grammar({
       $._schedule_command,
       $._scoreboard_command,
       $._team_command,
-      $._tag_command
+      $._tag_command,
+      $._execute_command
     ),
 
     _teleport_command: $ => seq(
@@ -187,7 +188,7 @@ module.exports = grammar({
         seq('enable', $.selector, $.objective),
         seq('get', $.selector, $.objective),
         seq('list', $.selector),
-        seq('operation', $.selector, $.objective, $.scoreboard_operation, $.selector, $.objective),
+        seq('operation', $.selector, $.objective, $.scoreboard_operator, $.selector, $.objective),
         seq('remove', $.selector, $.objective, $.integer),
         seq('reset', $.selector, optional($.objective)),
         seq('set', $.selector, $.objective, $.integer)
@@ -216,6 +217,118 @@ module.exports = grammar({
         seq('remove', $.tag),
         'list'
       )
+    ),
+
+    _execute_command: $ => seq(
+      'execute',
+      repeat(choice(
+        $._execute_as_command,
+        $._execute_at_command,
+        $._execute_if_command,
+        $._execute_unless_command,
+        $._execute_in_command,
+        $._execute_positioned_command,
+        $._execute_rotated_command,
+        $._execute_facing_command,
+        $._execute_store_command,
+        $._execute_anchored_command,
+        $._execute_align_command
+      )),
+      optional(seq(
+        'run',
+        $.command
+      ))
+    ),
+
+    _execute_as_command: $ => seq(
+      'as',
+      $.selector
+    ),
+
+    _execute_at_command: $ => seq(
+      'at',
+      $.selector
+    ),
+
+    _execute_if_command: $ => seq(
+      'if',
+      $._if_unless_command
+    ),
+
+    _execute_unless_command: $ => seq(
+      'unless',
+      $._if_unless_command
+    ),
+
+    _if_unless_command: $ => choice(
+      seq('entity', $.selector),
+      seq('block', $._coordinate3, $.block),
+      seq('blocks', $._coordinate3, $._coordinate3, $._coordinate3, choice('all', 'masked')),
+      seq('data', choice(
+        seq('entity', $.selector),
+        seq('block', $._coordinate3)
+      ), $.nbt_path),
+      seq('score', $.selector, $.objective, choice(
+        seq('matches', $.integer_range),
+        seq($.scoreboard_comparator, $.selector, $.objective)
+      ))
+    ),
+
+    _execute_in_command: $ => seq(
+      'in',
+      $.dimension
+    ),
+
+    _execute_positioned_command: $ => seq(
+      'positioned',
+      choice(
+        seq('as', $.selector),
+        $._coordinate3
+      )
+    ),
+
+    _execute_rotated_command: $ => seq(
+      'rotated',
+      choice(
+        seq('as', $.selector),
+        seq($.coordinate, $.coordinate)
+      )
+    ),
+
+    _execute_facing_command: $ => seq(
+      'facing',
+      choice(
+        seq('entity', $.selector),
+        seq($._coordinate3)
+      )
+    ),
+
+    _execute_store_command: $ => seq(
+      'store',
+      choice('result', 'success'),
+      choice(
+        seq('block', $._coordinate3, $.nbt_path, $.nbt_type, $.float),
+        seq('entity', $.selector, $.nbt_path, $.nbt_type, $.float),
+        seq('score', $.selector, $.objective),
+        seq('bossbar', $.bossbar, choice('max', 'value')),
+      )
+    ),
+
+    _execute_anchored_command: $ => seq(
+      'anchored',
+      $.anchor
+    ),
+
+    _execute_align_command: $ => seq(
+      'align',
+      $.axes_swizzle
+    ),
+
+    integer_range: $ => choice(
+      seq($.integer, '..', $.integer),
+      seq('..', $.integer),
+      seq($.integer, '..'),
+      $.integer
     ),
 
     selector: $ => choice(
@@ -252,6 +365,8 @@ module.exports = grammar({
     coordinate: $ => '~',
 
     integer: $ => /-?[0-9]+/,
+
+    float: $ => /-?[0-9]+(\.[0-9]+)?/,
 
     block: $ => seq(
       optional("#"),
@@ -372,7 +487,9 @@ module.exports = grammar({
 
     scoreboard_criteria: $ => /[\.A-Za-z0-9:_-]+/,
 
-    scoreboard_operation: $ => choice('%=', '*=', '+=', '-=', '/=', '<=', '=', '>=', '><'),
+    scoreboard_operator: $ => choice('%=', '*=', '+=', '-=', '/=', '<=', '=', '>=', '><'),
+
+    scoreboard_comparator: $ => choice('=', '<', '>', '<=', '>='),
 
     team: $ => /[\.A-Za-z0-9_-]{1,16}/,
 
@@ -381,7 +498,38 @@ module.exports = grammar({
     // TODO: allow text component alternative
     team_option_value: $ => /[A-Za-z]+/,
 
-    tag: $ => /[\.A-Za-z0-9_-]+/
+    tag: $ => /[\.A-Za-z0-9_-]+/,
+
+    dimension: $ => seq(
+      optional(seq('minecraft', ':')),
+      choice(
+        'overworld',
+        'the_nether',
+        'the_end'
+      )
+    ),
+
+    axes_swizzle: $ => choice(
+      /xy?z?/,
+      /x?yz?/,
+      /x?y?z/,
+    ),
+
+    anchor: $ => choice(
+      'feet',
+      'eyes'
+    ),
+
+    nbt_type: $ => choice(
+      'byte',
+      'double',
+      'float',
+      'int',
+      'long',
+      'short'
+    ),
+
+    bossbar: $ => /([\.a-z0-9_-]+:)?[\/\.a-z0-9_-]+/
 
   }
 

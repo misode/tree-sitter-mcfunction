@@ -24,7 +24,7 @@ scoreboard players get @s foo
 ---
 (function
   (command (selector) (objective) (integer))
-  (command (selector) (objective) (scoreboard_operation) (selector) (objective))
+  (command (selector) (objective) (scoreboard_operator) (selector) (objective))
   (command (selector) (objective))
 )
 
