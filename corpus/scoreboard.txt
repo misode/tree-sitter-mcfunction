@@ -57,3 +57,15 @@ tag @s remove Bar
   (command (selector))
   (command (selector) (tag))
 )
+
+=====
+Fakeplayers
+=====
+scoreboard players set foo bar 0
+scoreboard players operation #num bar += @s foo
+
+---
+(function
+  (command (selector (fakeplayer)) (objective) (integer))
+  (command (selector (fakeplayer)) (objective) (scoreboard_operator) (selector) (objective))
+)

@@ -21,3 +21,9 @@ say hello
 setblock ~ ~ ~ hello[oof=1]
 
 summon armor_stand ~ ~ ~ {Marker:1b}
+scoreboard objectives add foo dummy
+scoreboard objectives modify foo rendertype integer
+
+scoreboard players set @s foo 1
+
+execute as @e run say hi

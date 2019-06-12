@@ -332,18 +332,22 @@ module.exports = grammar({
     ),
 
     selector: $ => choice(
-      seq(
-        '@',
-        choice('p', 'a', 'r', 's', 'e'),
-        optional(seq(
-          '[',
-          $._selector_argument,
-          repeat(seq(",",$._selector_argument)),
-          ']'
-        ))
-      )
-      // TODO: support fakeplayers
+      $._entity_selector,
+      $.fakeplayer
     ),
+
+    _entity_selector: $ => seq(
+      '@',
+      choice('p', 'a', 'r', 's', 'e'),
+      optional(seq(
+        '[',
+        $._selector_argument,
+        repeat(seq(",",$._selector_argument)),
+        ']'
+      ))
+    ),
+
+    fakeplayer: $ => /[A-Za-z0-9_.,:#$-]+/,
 
     _selector_argument: $ => seq(
       $.selector_key,
